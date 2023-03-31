@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | <?= $NAMA_INSTANSI ?></title>
+    <title>Login | <?= NAMA_INSTANSI ?></title>
 </head>
 <body>
     <form action="/login/control" method="post">
         <div>
-            <label for="username">Username</label>
+            <label for="email">Email</label>
             <input 
                 type="text"
-                name="username"
-                id="username"
+                name="email"
+                id="email"
             >
         </div>
         <div>
