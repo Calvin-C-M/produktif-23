@@ -31,6 +31,24 @@ class Authentication extends BaseController {
     }
 
     public function register() {
+        $userData = [
+            "nama" => $this->request->getVar("nama"),
+            "alamat" => $this->request->getVar("alamat"),
+        ];
 
+        $this->userModel->insert($userData);
+        $user = $this->userModel->where("nama", $userData["nama"])
+                                ->first();
+
+        $accData = [
+            "email" => $this->request->getVar("email"),
+            "password" => md5($this->request->getVar("password")),
+            "id_user" => $user["id"]
+        ];
+
+        $this->accModel->insert($accData);
+
+        return redirect()->to(base_url("/"))
+            ->with("successfulLogin", true);
     }
 }

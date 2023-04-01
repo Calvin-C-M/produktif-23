@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Produktif 2023</title>
+    <title>Register | <?= NAMA_INSTANSI ?></title>
 </head>
 <body>
     <form action="/register/control" method="post">
@@ -17,11 +17,19 @@
             >
         </div>
         <div>
-            <label for="username">Username</label>
+            <label for="alamat">Alamat</label>
             <input 
                 type="text"
-                name="username"
-                id="username"
+                name="alamat"
+                id="alamat"
+            >
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input 
+                type="email"
+                name="email"
+                id="email"
             >
         </div>
         <div>
@@ -34,7 +42,7 @@
         </div>
         <button>Register</button>
         <div>
-            <a href="/login">
+            <a href="/">
                 Aku sudah punya akun
             </a>
         </div>
