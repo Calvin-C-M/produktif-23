@@ -8,9 +8,10 @@ use App\Models\Account;
 class Authentication extends BaseController {
     protected $userModel;
     protected $accModel;
-
+    protected $session;
 
     public function __construct() {
+        $this->session = \Config\Services::session();
         $this->userModel = new Users();
         $this->accModel = new Account();
     }
@@ -50,5 +51,45 @@ class Authentication extends BaseController {
 
         return redirect()->to(base_url("/"))
             ->with("successfulLogin", true);
+    }
+
+    public function send_reset_password() {
+        $email = $this->request->getVar("email");
+
+        $accData = $this->accModel->where("email", $email)
+                                ->first();
+
+        if($accData == null) {
+            return redirect()->to(base_url("/forgot"))
+                            ->with("error", "Email tidak terdaftar!");
+        } else {
+            $this->session->setFlashdata("email", $email);
+            return redirect()->to(base_url("/reset-password"));
+        }
+    }
+
+    public function reset_password() {
+        $newPassword = md5($this->request->getVar("new-password"));
+        $confirmPassword = md5($this->request->getVar("confirm-password"));
+        $email = $this->request->getVar("email");
+
+        if($newPassword !== $confirmPassword) {
+            return redirect()->to(base_url("/reset-password"))
+                            ->with("error", "Password tidak cocok!");
+        } else {
+            $acc = $this->accModel->where("email", $email)
+                                ->first();
+            $newAccData = [
+                "id"        => $acc["id"],
+                "email"     => $email,
+                "password"  => $newPassword,
+                "id_user"   => $acc["id_user"]
+            ];
+
+            $this->accModel->update($acc["id"], $newAccData);
+
+            return redirect()->to(base_url("/"))
+                            ->with("success", "Password berhasil diubah!");
+        }
     }
 }
