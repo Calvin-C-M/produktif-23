@@ -3,16 +3,19 @@
 namespace App\Controllers;
 
 use App\Models\Users;
+use App\Models\Account;
 use Codeigniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
 
 class User extends ResourceController {
     use ResponseTrait;
     protected $model;
+    protected $accModel;
     protected $format = "json";
 
     public function __construct() {
         $this->model = new Users();
+        $this->accModel = new Account();
     }
 
     protected function formatResponse(int $status, $data = null, $error = null, string $message) {
@@ -61,7 +64,11 @@ class User extends ResourceController {
     }
 
     public function delete($id=null) {
-        if($this->model->find($id)) {
+        $userData = $this->model->find($id);
+        if($userData != null) {
+            $accData = $this->accModel->where('id_user', $id)
+                                    ->first();
+            $this->accModel->delete($accData['id']);
             $this->model->delete($id);
             return $this->respondDeleted($this->formatResponse(200, null, null, 'Data berhasil dihapuskan'));
         } return $this->failNotFound('Data tidak ditemukan');
