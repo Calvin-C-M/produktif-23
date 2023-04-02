@@ -36,6 +36,36 @@ class User extends ResourceController {
             return $this->respond($this->formatResponse(200, $data, null, 'Data ditemukan'), 200);
         } return $this->failNotFound('Data tidak ditemukan');
     }
+
+    public function create() {
+        $data = [
+            'nama'      => $this->request->getVar("nama"),
+            'alamat'    => $this->request->getVar("alamat"),
+        ];
+
+        if($this->model->insert($data)) {
+            return $this->respondCreated($this->formatResponse(201, null, null, 'Data berhasil disimpan'));
+        } return $this->failServerError();
+    }
+
+    public function update($id=null) {
+        $input = $this->request->getRawInput();
+        $data = [
+            'nama'      => $input["nama"],
+            'alamat'    => $input["alamat"]
+        ];
+
+        if($this->model->update($id, $data)) {
+            return $this->respondUpdated($this->formatResponse(200, null, null, 'Data berhasil disimpan'));
+        } return $this->failNotFound('Data tidak ditemukan');
+    }
+
+    public function delete($id=null) {
+        if($this->model->find($id)) {
+            $this->model->delete($id);
+            return $this->respondDeleted($this->formatResponse(200, null, null, 'Data berhasil dihapuskan'));
+        } return $this->failNotFound('Data tidak ditemukan');
+    }
 }
 
 ?>
