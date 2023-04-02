@@ -36,7 +36,7 @@
                         <td>${user.nama}</td>
                         <td>${user.alamat}</td>
                         <td>
-                            <button>Update</button>
+                            <button onclick="location.href='/admin/update?id=${user.id}'">Update</button>
                             <button onclick="deleteData(${user.id})">Delete</button>
                         </td>
                     </tr>
