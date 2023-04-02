@@ -41,6 +41,8 @@ $routes->post('/reset-password/control', 'Authentication::reset_password');
 
 $routes->get('/admin/home', 'Admin::index');
 
+$routes->resource("user");
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
