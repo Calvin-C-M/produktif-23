@@ -35,6 +35,16 @@
         </script>
     <?php endif; ?>
 
+    <?php
+        if(isset($_SESSION['warning'])) : ?>
+        <script>
+            Swal.fire({
+                icon: "warning",
+                title: "<?= $_SESSION['warning'] ?>"
+            })
+        </script>
+    <?php endif; ?>
+
     <main class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <div class="w-50 bg-body-secondary border border-2 border-primary-subtle p-3 rounded-2 text-primary-emphasis shadow">
             <h1 class="text-center">Login</h1>

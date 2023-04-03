@@ -39,9 +39,14 @@ $routes->post('/register/control', 'Authentication::register');
 $routes->post('/send-reset-password', 'Authentication::send_reset_password');
 $routes->post('/reset-password/control', 'Authentication::reset_password');
 
-$routes->get('/admin/home', 'Admin::index');
-$routes->get('/admin/update', 'Admin::update');
-$routes->post('/admin/update/control', 'Admin::update_control');
+$routes->group('/admin', ['filter' => 'admin'], function($routes) {
+    $routes->get('home', 'Admin::index');
+    $routes->get('update', 'Admin::update');
+    $routes->post('update/control', 'Admin::update_control');    
+});
+// $routes->get('/admin/home', 'Admin::index');
+// $routes->get('/admin/update', 'Admin::update');
+// $routes->post('/admin/update/control', 'Admin::update_control');
 
 $routes->resource("user");
 
