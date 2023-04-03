@@ -50,7 +50,7 @@ class Authentication extends BaseController {
         $this->accModel->insert($accData);
 
         return redirect()->to(base_url("/"))
-            ->with("successfulLogin", true);
+            ->with("success", "Anda berhasil mendaftarkan diri");
     }
 
     public function send_reset_password() {
