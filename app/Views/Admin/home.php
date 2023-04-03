@@ -29,7 +29,7 @@
                         class="rounded-circle"
                         alt="Foto Profil"
                     >
-                    <span>Calvin</span>
+                    <span><?= $user['nama'] ?></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li>
@@ -65,23 +65,26 @@
         .then(data => {
             let users = data.data
             const tableBody = document.querySelector(".table-body")
+            const currUserId = "<?= $user['id'] ?>"
             users.map(user => {
                 console.log(user)
-                tableBody.innerHTML += `
-                    <tr>
-                        <td>${user.id}</td>
-                        <td>${user.nama}</td>
-                        <td>${user.alamat}</td>
-                        <td>
-                            <button class="btn btn-warning" onclick="location.href='/admin/update?id=${user.id}'">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-outline-danger" onclick="deleteData(${user.id})">
-                                <i class="bi bi-trash3"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `
+                if(user.id != currUserId) {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.nama}</td>
+                            <td>${user.alamat}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="location.href='/admin/update?id=${user.id}'">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-outline-danger" onclick="deleteData(${user.id})">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `
+                }
             })
 
         })
