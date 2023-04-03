@@ -8,14 +8,19 @@ use App\Models\Account;
 class Admin extends BaseController {
     protected $userModel;
     protected $accModel;
+    protected $session;
 
     public function __construct() {
+        $this->session = \Config\Services::session();
         $this->userModel = new Users();
         $this->accModel = new Account();
     }
     
     public function index() {
-        return view('/Admin/home');
+        $passData = [
+            "user"  => $this->session->get('user'),
+        ];
+        return view('/Admin/home', $passData);
     }
 
     public function update() {

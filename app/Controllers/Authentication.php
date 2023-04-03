@@ -24,6 +24,12 @@ class Authentication extends BaseController {
         $accData = $this->accModel->where("email", $inputData["email"])->first();
 
         if($accData != null && $accData["password"] == md5($inputData["password"])) {
+            $userData = $this->userModel->find($accData['id_user']);
+            $sessionData = [
+                'isLoggedIn'    => true,
+                'user'          => $userData
+            ];
+            $this->session->set($sessionData);
             return redirect()->to(base_url('/admin/home'));
         } else {
             return redirect()->to(base_url("/"))
