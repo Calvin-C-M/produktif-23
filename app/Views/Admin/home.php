@@ -12,7 +12,6 @@
 
     <script src="<?= base_url("bootstrap/js/bootstrap.bundle.min.js") ?>"></script>
     <script src="<?= base_url("sweetalert/sweetalert2.all.min.js") ?>"></script>
-    <script src="<?= base_url("scripts/toggle_password.js") ?>"></script>
 
     <script src="<?= base_url("scripts/api_handler.js") ?>"></script>
 </head>
