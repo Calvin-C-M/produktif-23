@@ -44,4 +44,13 @@ class Admin extends BaseController {
         return redirect()->to(base_url('/admin/home'))
                         ->with('success', 'Data berhasil diupdate');
     }
+
+    public function profile() {
+        $passData = [
+            "user"      => $this->session->get('user'),
+            "account"   => $this->accModel->where('id_user', $this->session->get('user')['id'])->first(),
+        ];
+
+        return view("/Admin/profile", $passData);
+    }
 }

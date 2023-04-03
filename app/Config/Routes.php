@@ -42,7 +42,8 @@ $routes->post('/reset-password/control', 'Authentication::reset_password');
 $routes->group('/admin', ['filter' => 'admin'], function($routes) {
     $routes->get('home', 'Admin::index');
     $routes->get('update', 'Admin::update');
-    $routes->post('update/control', 'Admin::update_control');    
+    $routes->get('profile', 'Admin::profile');
+    $routes->post('update/control', 'Admin::update_control');
 });
 // $routes->get('/admin/home', 'Admin::index');
 // $routes->get('/admin/update', 'Admin::update');
