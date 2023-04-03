@@ -32,6 +32,11 @@ class Authentication extends BaseController {
     }
 
     public function register() {
+        if($this->accModel->where("email", $this->request->getVar("email"))->first()) {
+            return redirect()->to(base_url('/register'))
+                            ->with('warning', 'Email sudah terdaftar');
+        }
+
         $userData = [
             "nama" => $this->request->getVar("nama"),
             "alamat" => $this->request->getVar("alamat"),
