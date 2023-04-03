@@ -10,6 +10,7 @@ class Home extends BaseController {
     }
     
     public function login() {
+        $this->session->destroy();
         return view('login');
     }
 
@@ -22,7 +23,7 @@ class Home extends BaseController {
     }
 
     public function reset_password() {
-        if($this->session->getFlashdata("email") != null) {
+        if(isset($_SESSION["email"])) {
             return view('reset_password');
         } return redirect()->to(base_url("/forgot"))
                         ->with("error", "Email tidak dikenal!");

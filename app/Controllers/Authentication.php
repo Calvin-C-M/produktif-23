@@ -68,7 +68,7 @@ class Authentication extends BaseController {
             return redirect()->to(base_url("/forgot"))
                             ->with("error", "Email tidak terdaftar!");
         } else {
-            $this->session->setFlashdata("email", $email);
+            $this->session->set("email", $email);
             return redirect()->to(base_url("/reset-password"));
         }
     }
